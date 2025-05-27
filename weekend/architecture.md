@@ -94,3 +94,31 @@ can make.
 Initilises the scene and then loops through each pixel generating `n`
 rays per pixel and averageing them. The results is them written to
 the current frame.
+
+
+## Hittable
+
+This is a pure abstract class that all objects that a ray can
+intersect with are derived from. It has single function `hit()`
+which takes a ray and tests whether it has hit the object.
+
+```
+public:
+    virtual bool hit(const ray& r, interval ray_t, hit_record& rec) const = 0;
+```
+
+The file also defines the `hit_record` class as simple data structure
+that stores the location of a ray/object intersection and any other
+data that goes along with that intersection. The class also defines one
+function `set_face_normal()` which sets the `normal` value.
+
+```
+public:
+    point3 p                  // Location of ray/object intersection
+    vec3 normal               // Normal vector of object at intersection point
+    shared_ptr<material> mat  // Object material at intersection point
+    double t                  // Parametric distance along the ray 
+    bool front_face           // Whether we have hit a front facing surface or not
+
+    void set_face_normal(const ray& r, const vec3& outward_normal) // Sets face normal
+```
