@@ -64,9 +64,33 @@ in the engine and has a single callable function `render()` which we
 call from our `main` file. Image resolution is defined by the width and
 the aspect raio.
 
-### `initlise()`
+### `initilise()`
 
 The engine works by firing multiple rays through each pixel of the
-image and averaginf their values together. To get each rays direction
+image and averaging their values together. To get each rays direction
 we have to build a set of basis and delta vectors for the camera. The
-basis vectors are 
+basis vectors define the plane that is perpendicular to the vector
+between the camera and the lookat point. Wel also then calculate the
+pixel delta vector which is the spacing between each pixel.
+
+### `get_ray()`
+
+Returns a ray that starts at the cameras origin and passes through the
+`(ith, jth)` pixel plus/minus a small amount. Thsi plus minus is what
+allows us to antiailiase the pixel.
+
+### `ray_colour()`
+
+Takes a ray and tests it against every object in the scene. If it hits
+an object we process its material and recursivaly test the bounced ray
+and if it does not we return our sky gradient. If the object has no
+material assigned it returns black and bounces no more rays.
+
+Also takes a depth argument so we can control how many bounces a ray
+can make.
+
+### `render()`
+
+Initilises the scene and then loops through each pixel generating `n`
+rays per pixel and averageing them. The results is them written to
+the current frame.
