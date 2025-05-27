@@ -122,3 +122,26 @@ public:
 
     void set_face_normal(const ray& r, const vec3& outward_normal) // Sets face normal
 ```
+
+## Hittable List
+
+```
+public:
+    std::vector<shared_ptr<hittable>> objects                // List of hittable objects
+
+    hittable_list()                                          // Creates a new empty list
+    hittable_list(shared_ptr<hittable> object)               // Creates a new list with an item added
+    void clear()                                             // Clears a list
+    void add(shared_ptr<hittable> object)                    // Adds a hittable object to the list
+
+    bool hit(const ray& r, interval ray_t, hit_record& rec)  // Overriden function that tests if a ray
+                                                             // hit an object in the list
+```
+
+This class holds a list of all the hittable objects in a scene and
+allows us to add to or clear said list. It also implements the virtual
+class `hittable` and so defines the function `hit(...)` which interates
+through our list of objects and calls each ones `hit()` functiopn with
+the given ray. The ray is tested against every object in the scene and
+a record is kept of the currently closest intersection found. Only the
+closest intersection is returned.
