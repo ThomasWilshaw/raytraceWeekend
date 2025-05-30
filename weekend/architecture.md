@@ -145,3 +145,59 @@ through our list of objects and calls each ones `hit()` functiopn with
 the given ray. The ray is tested against every object in the scene and
 a record is kept of the currently closest intersection found. Only the
 closest intersection is returned.
+
+## Interval
+
+```
+public:
+    double min, max;
+
+    interval() : min(+infinity), max(-infinity) {}            // Default interval is empty
+    interval(double min, double max) : min(min), max(max) {}  // Create a interval between min and max
+
+    double size()                                             // Return the size of an interval
+    bool contains(double x)                                   // Tests if min <= x <= max
+    bool surrounds(double x)                                  // Tests if min < x < max
+    double clamp(double x)                                    // Clamps a value to the bounds of the interval
+```
+
+Intervals are defined as a gap between a minimum and a maximum value.
+This class also implements functions to work with intervals such as
+testing if a value falls within an interval or clamping a value to an
+interval. We also define two constant intervals, `empty` and
+`universe`.
+
+```
+const interval interval::empty = interval(+infinity, -infinity);
+const interval interval::universe = interval(-infinity, +infinity);
+```
+
+The main use of intervals is in `hittable_list::hit()`. We start with
+an interval between `0.001` and `inf` and for every object that is hit,
+if the hit point is within the current interval, the interval shrinks
+to `0.001` and `hit_point`, otherwise it is skipped.
+
+## Material
+
+```
+public:
+	virtual ~material() = default;
+
+	virtual bool scatter( const ray& r_in, const hit_record& rec, Colour& attenuation, ray& scattered)
+```
+
+This is a virtual class that all materials inherit from and it
+consists of a single function `scatter(...)`. It takes an incoming ray,
+an hit record that contains information about where the ray hit, a
+colour attenuation to pass back up and a new ray that will be the
+scattered outgoing ray.
+
+To use the `lambertian` class as an example, we take the hit points
+normal vector and use that to generate a random outward vector that
+becomes the direction vector for our new ray (more complex shaders
+such as the `dielectric` use the incoming ray and normal to
+calculate a reflection or a refraction ray). The albedo colour of the
+shader is passed up and used to attenuate the current ray colour. For
+example if the aledo is `Colour(1,0,0)` the ray colour will be fully
+attenuated in the green and blue channels and uneffected in the red as
+it the object absorbed all but the red light.
