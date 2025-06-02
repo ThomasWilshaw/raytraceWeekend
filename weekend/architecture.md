@@ -201,3 +201,25 @@ shader is passed up and used to attenuate the current ray colour. For
 example if the aledo is `Colour(1,0,0)` the ray colour will be fully
 attenuated in the green and blue channels and uneffected in the red as
 it the object absorbed all but the red light.
+
+## Ray
+
+```
+public:
+	ray()
+	ray(const point3& origin, const vec3& direction)
+
+	const point3& origin()
+	const vec3& direction()
+
+	point3 at(double t)
+
+private:
+	point3 orig_;
+	vec3 dir_;
+};
+```
+
+Basic ray object, rays are stored as a origin point and a direction,
+all in three dimensions. ALso provides and `at()` function that
+interpolates along a ray by the amount `t`.
