@@ -2,3 +2,6 @@
 out/*
 weekend/.vs/*
 weekend/out/*
+nextWeek/.vs/*
+nextWeek/out/*
+*.json
