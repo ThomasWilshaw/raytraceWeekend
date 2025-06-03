@@ -223,3 +223,36 @@ private:
 Basic ray object, rays are stored as a origin point and a direction,
 all in three dimensions. ALso provides and `at()` function that
 interpolates along a ray by the amount `t`.
+
+## RTWeekend
+
+```
+// Constants
+const double infinity = std::numeric_limits<double>::infinity();
+const double pi = 3.1415926535897932385;
+
+// Utility Functions
+
+inline double degrees_to_radians(double degrees)
+
+inline double random_double()
+
+inline double random_double(double min, double max)
+```
+
+Utility header that defines several constants and commonly used
+funcitons. Also includes several commonly used headers.
+
+## Sphere
+
+The only mesh/object defined so far, it ihnherits from the `hittable`
+and so defines the function `hit(...)`. Spheres are defined with an
+origin and a radius and from this we can easily calculate if a ray
+has intersected with it or not. This class is also assigned a
+material.
+
+## Vec3
+
+Defines a three dimensional vector class and overloads various
+operators to make woring with them easier. Also includes a set of
+vector specific functions such as `legnth()`, `cross()` etc.
