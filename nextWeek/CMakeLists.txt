@@ -12,6 +12,8 @@ set ( CMAKE_CXX_STANDARD_REQUIRED ON )
 set ( CMAKE_CXX_EXTENSIONS        OFF )
 
 set ( SOURCE_ONE_WEEKEND
+  aabb.h
+  bvh.h
   camera.h
   main.cpp
   frame.h
