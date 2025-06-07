@@ -23,7 +23,9 @@ set ( SOURCE_ONE_WEEKEND
   material.h
   ray.h
   rtweekend.h
+  rtw_openexr_image.h
   sphere.h
+  texture.h
   vec3.h
 )
 
